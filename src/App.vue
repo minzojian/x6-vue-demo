@@ -2,8 +2,10 @@
   <div style="width=100vw; height=100vh">
     <div id="container"></div>
     <!-- <button @click="testaddport">添加Port</button> -->
-    <el-button type="primary" @click="testaddnode">添加节点</el-button>
-    <el-button type="primary" @click="testaddport">添加Port</el-button>
+    <div class="buttons">
+      <el-button type="primary" @click="testaddnode">添加节点</el-button>
+      <el-button type="primary" @click="testaddport">添加Port</el-button>
+    </div>
   </div>
 </template>
 
@@ -163,7 +165,10 @@ export default {
     // test
 
     testaddport() {
-      this.addPortInNode(this.graph.getNodes()[0].id, "肯定");
+      this.addPortInNode(
+        this.graph.getNodes()[0].id,
+        ["肯定", "拒绝", "否定", "默认"][(Math.random() * 4) | 0]
+      );
     },
 
     testaddnode() {
@@ -180,8 +185,8 @@ export default {
     addNode(icon, title, content, ports = []) {
       this.graph.addNode({
         shape: "my-node",
-        x: 100,
-        y: 100,
+        x: 100 * Math.random(),
+        y: 100 * Math.random(),
         width: 200,
         height: 100,
         data: {
@@ -524,6 +529,11 @@ export default {
 }
 </style>
 <style scoped>
+.buttons {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
 .flex {
   display: flex;
   align-items: center;
